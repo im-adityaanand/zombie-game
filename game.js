@@ -7,11 +7,15 @@ const zombieDiv = document.querySelector("#game-body");
 // Iteration 1.2: Add shotgun sound
 const expAudio = new Audio("./assets/shotgun.wav");
 expAudio.volume = 0.2;
+zombieDiv.onclick = () => {
+    expAudio.pause();
+    expAudio.currentTime = 0;
+    expAudio.play();
+  };
 
 // Iteration 1.3: Add background sound
 const backgroundSound = new Audio("./assets/bgm.mp3");
-backgroundSound.play();
-backgroundSound.loop = true;
+
 
 // Iteration 1.4: Add lives
 let lives = 4;
@@ -64,7 +68,18 @@ let timer = setInterval(function() {
 }, 1000);
 
 // Iteration 6: Write a code to start the game by calling the first zombie
-createZombie();
+let started = false;
+document.addEventListener("click", function(){
+    if(!started){
+        document.querySelector("h1").classList.add("na");
+        document.querySelector(".not-started-bg").classList.add("na");
+        started = true;
+        backgroundSound.play();
+        backgroundSound.loop = true;
+        createZombie();
+    } 
+});  
+
 
 // Iteration 7: Write the helper function to get random integer
 
@@ -72,3 +87,4 @@ createZombie();
 //     min = Math.ceil(min);
 //     max = Math.floor(max);
 // }
+
